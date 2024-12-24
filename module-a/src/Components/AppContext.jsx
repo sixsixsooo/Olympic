@@ -7,16 +7,15 @@ export const AppProvider = ({ children }) => {
         const savedContractId = sessionStorage.getItem('contractId');
         return savedContractId ? savedContractId : "";
     });
-    
     const [userData, setUserData] = useState(() => {
         const savedUserData = sessionStorage.getItem('userData');
         return savedUserData ? JSON.parse(savedUserData) : {};
     });
-    
     const [otherInfo, setOtherInfo] = useState(() => {
         const savedOtherInfo = sessionStorage.getItem('otherInfo');
         return savedOtherInfo ? savedOtherInfo : "";
     });
+    const [account, setAccount] = useState("");
 
     useEffect(() => {
         sessionStorage.setItem('contractId', contractId);
@@ -31,13 +30,15 @@ export const AppProvider = ({ children }) => {
     }, [otherInfo]);
 
     return (
-        <AppContext.Provider value={{ 
-            contractId, 
-            setContractId, 
-            userData, 
-            setUserData, 
-            otherInfo, 
-            setOtherInfo 
+        <AppContext.Provider value={{
+            contractId,
+            setContractId,
+            userData,
+            setUserData,
+            otherInfo,
+            setOtherInfo,
+            account,
+            setAccount
         }}>
             {children}
         </AppContext.Provider>

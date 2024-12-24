@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import { contractDeployAddress } from '../ContractData/data';
+import { useAppContext } from '../Components/AppContext';
 
 function App() {
-  const [account, setAccount] = useState('');
+  const { account, setAccount, contractId } = useAppContext();
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
@@ -12,58 +12,59 @@ function App() {
     const loadWeb3 = async () => {
       if (window.ethereum) {
         const web3 = new Web3(window.ethereum);
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
         const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
+        if (accounts.length > 0) {
+          setAccount(accounts[0]); // Устанавливаем аккаунт в контекст
+        } else {
+          alert('Нет доступных аккаунтов. Пожалуйста, подключите MetaMask.');
+        }
       } else {
-        alert('Please install MetaMask!');
+        alert('Пожалуйста, установите MetaMask!');
       }
     };
-
     loadWeb3();
-  }, []);
+  }, [setAccount]);
 
   useEffect(() => {
     const loadBalance = async () => {
-      if (account) {
+      if (account && contractId) {
         const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(MyTokenABI, contractDeployAddress);
+        const contract = new web3.eth.Contract(MyTokenABI, contractId);
         const balance = await contract.methods.balanceOf(account).call();
         setBalance(balance);
       }
     };
-
     loadBalance();
-  }, [account]);
+  }, [account, contractId]); // Зависимость от account и contractId
 
   const handleTransfer = async () => {
     const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(MyTokenABI, contractDeployAddress);
+    const contract = new web3.eth.Contract(MyTokenABI, contractId); // Используем contractId из контекста
     await contract.methods.transfer(recipient, amount).send({ from: account });
-    alert('Transfer successful!');
+    alert('Перевод успешен!');
     setAmount('');
     setRecipient('');
   };
 
   return (
     <div>
-      <h1>My Token DApp</h1>
-      <p>Account: {account}</p>
-      <p>Balance: {balance} MTK</p>
-      <h2>Transfer Tokens</h2>
+      <h1>Мой токен DApp</h1>
+      <p>Аккаунт: {account}</p>
+      <p>Баланс: {balance} MTK</p>
+      <h2>Перевод токенов</h2>
       <input
         type="text"
-        placeholder="Recipient Address"
+        placeholder="Адрес получателя"
         value={recipient}
         onChange={(e) => setRecipient(e.target.value)}
       />
       <input
         type="number"
-        placeholder="Amount"
+        placeholder="Сумма"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
-      <button onClick={handleTransfer}>Transfer</button>
+      <button onClick={handleTransfer}>Перевести</button>
     </div>
   );
 }
