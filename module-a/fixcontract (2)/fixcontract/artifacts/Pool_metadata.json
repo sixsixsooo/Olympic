@@ -1,0 +1,299 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_poolName",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "_tokenFirst",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_tokenSecond",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_firstTokenPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_secondTokenPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_lpAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_poolOwner",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "addFirstTokenLiquidity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "addSecondTokenLiquidity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getFirstToken",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getFirstTokenReserve",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSecondToken",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSecondTokenReserve",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "poolName",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "poolOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "firstAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "tradeFirstToSecond",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "secondAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "tradeSecondToFirst",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "fromToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "toToken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "tradeTokens",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"fixcontract/Pool.sol": "Pool"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"fixcontract/ERC20.sol": {
+			"keccak256": "0xba71dc3094972d4cfaa4419d2a1d0e89e809ed53cf0d93bc625841dcbe9f49cf",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8f389154466a857ca750d6848bc77e3facf81db994fadddf47092e54d1d8f750",
+				"dweb:/ipfs/QmSMEU1xseo34hd68zkogEBTT8rftskvT3hMZPPHJ87aYH"
+			]
+		},
+		"fixcontract/Pool.sol": {
+			"keccak256": "0xc652b5d07476468f0801fb42e59edc0db0cab98d838e36410a4fbd5119fc89f8",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://599c7138c86b24047c2beb7a48832cb82740359a4413f0045b8f820a91ebe78d",
+				"dweb:/ipfs/QmZyU8o63WAaPpmRQ5VYZ6xaDPaKSDXfdvbHAba61suRQM"
+			]
+		},
+		"fixcontract/Token.sol": {
+			"keccak256": "0x498cee5d54bf5fe8dd0a55b9a2e0db41fd6f3c02e46e0ff709791a2e20f016da",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://8a7b112742873c00d79df24293d7fdb9e9b414be5b4bbe5301e1eaaf0efd213a",
+				"dweb:/ipfs/QmYpFmzqU7NJzJ8s3d63KRE7tureTmLjE6r6tV7mFF4gVr"
+			]
+		}
+	},
+	"version": 1
+}
