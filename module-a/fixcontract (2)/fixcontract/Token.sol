@@ -5,9 +5,9 @@ import "./ERC20.sol";
 
 contract Token is ERC20 {
     address public Owner;
-    address public Tom = 0x6f5c8CFc8FC4fF2C003d5d4Dfe6673F23E17ee4c;
-    address public Ben = 0xe40ec4fBd2Dd72CA3E9A825B570c2182370d0569;
-    address public Rick = 0xB0c9eB3164E940df84FDdc65167AA00AA466AE5b;
+    address public Tom = 0xf70A2E63F514fd1333E1Aa0B4Bcbb7D5F441b74f;
+    address public Ben = 0x041A30878139321eE2E325E469d5D6e784A8b26d;
+    address public Rick = 0xA7aD00977357963Cce7D3445E0843cE23E0F4838;
 
     constructor(
         string memory name,
