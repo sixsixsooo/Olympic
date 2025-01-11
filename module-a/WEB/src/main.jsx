@@ -23,7 +23,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/stacking" element={<Router/>}/>
         </Routes>
       </AppProvider>
-      
+
     </BrowserRouter>
   </StrictMode>,
 )

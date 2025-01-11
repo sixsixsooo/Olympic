@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import abi from "../ContractData/abi.json";
+import abi from "../ContractData/abi";
 import { contractGas, bytecode } from "../ContractData/data";
 import Web3 from "web3";
 import { useAppContext } from "../Components/AppContext";
