@@ -10,11 +10,6 @@
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
 			}
 		],
 		"name": "addFirstTokenLiquidity",
@@ -33,14 +28,35 @@
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
 			}
 		],
 		"name": "addSecondTokenLiquidity",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "gerdaAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "changeGerdaToRTK",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "RTKAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "changeRTKToGerda",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -104,42 +120,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "tokenFrom",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "tokenTo",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
-		"name": "multiSwap",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
 			}
 		],
 		"name": "putLPProfi",
@@ -148,26 +131,14 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "returnMyStack",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "takeReward",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -250,30 +221,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "tokenFrom",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "tokenTo",
-				"type": "address"
-			}
-		],
-		"name": "findPath",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "Gerda",
 		"outputs": [
@@ -316,29 +263,16 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "sender",
+				"name": "tokenAddress",
 				"type": "address"
 			}
 		],
-		"name": "getBalances",
+		"name": "getBalance",
 		"outputs": [
 			{
-				"internalType": "uint256[]",
+				"internalType": "uint256",
 				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getCorrespondanceMatrix",
-		"outputs": [
-			{
-				"internalType": "address[][]",
-				"name": "",
-				"type": "address[][]"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -364,13 +298,7 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "getMyStackingBalance",
 		"outputs": [
 			{
@@ -396,25 +324,6 @@
 				"internalType": "string",
 				"name": "",
 				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "poolAddresses",
-				"type": "address[]"
-			}
-		],
-		"name": "getPoolNames",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -459,13 +368,7 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "getValueAllStackingLP",
 		"outputs": [
 			{
@@ -607,13 +510,7 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "showNonStackedTokens",
 		"outputs": [
 			{
@@ -631,25 +528,6 @@
 		"outputs": [
 			{
 				"internalType": "contract Stacking",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "Tokens",
-		"outputs": [
-			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}

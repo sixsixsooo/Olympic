@@ -1,29 +1,30 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import MainPage from './Pages/MainPage'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Profile from './Pages/Profile'
-import Accounts from './Pages/Accounts'
-import Start from './Pages/Start'
-import { AppProvider } from './Components/AppContext'
-import Pools from './Pages/Pools'
-import Router from './Pages/Router'
-import Stacking from './Pages/Stacking'
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AppProvider>
-        <Routes>
-          <Route path="/" element={<Start/>}/>
-          <Route path="/main" element={<MainPage/>}/>
-          <Route path="/profile" element={<Profile/>}/>
-          <Route path="/accounts" element={<Accounts/>}/>
-          <Route path="/pools" element={<Pools/>}/>
-          <Route path="/router" element={<Router/>}/>
-          <Route path="/stacking" element={<Router/>}/>
-        </Routes>
-      </AppProvider>
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { DataProvider } from "./Components/DataProvider";
+import Auth from "./Pages/Auth";
+import Layout from "./Components/Layout";
+import { BalanceList } from "./Pages/BalanceList";
+import PoolsList from "./Pages/PoolsList";
+import Stacking from "./Pages/Stacking";
+import { path } from "./Components/Path";
+import Router from "./Pages/Router";
 
-    </BrowserRouter>
-  </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <DataProvider>
+                <Routes>
+                    <Route path={path.auth} element={<Auth />} />
+                    <Route path={path.app} element={<Layout><App /></Layout>} />
+                    <Route path={path.poolsList} element={<Layout><PoolsList /></Layout>} />
+                    <Route path={path.balanceList} element={<Layout><BalanceList /></Layout>} />
+                    <Route path="*" element={<Layout><Auth /></Layout>} />
+                    <Route path={path.stacking} element={<Layout><Stacking /></Layout>} />
+                    <Route path={path.rooter} element={<Layout><Router /></Layout>} />
+                </Routes>
+            </DataProvider>
+        </BrowserRouter>
+    </React.StrictMode>
+);
