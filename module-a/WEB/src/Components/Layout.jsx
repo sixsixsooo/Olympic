@@ -9,10 +9,6 @@ const Layout = ({ children }) => {
         navigate(path.auth);
     };
 
-    const handlePrevPage = () => {
-        navigate(-1);
-    };
-
     return (
         <div>
             <button onClick={handleLeave}>Выйти из личного кабинета</button>
