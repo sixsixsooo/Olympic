@@ -2,75 +2,86 @@ import { useEffect, useRef, useState } from "react";
 import { useData } from "../Components/DataProvider";
 
 const Stacking = () => {
-    const { contract, selectedAccount } = useData() || {};
-    const [profiBalance, setProfiBalance] = useState(null);
-    const [profiMyBalance, setProfiMyBalance] = useState(null);
+  const { contract, selectedAccount } = useData() || {};
+  const [profiBalance, setProfiBalance] = useState(null);
+  const [profiMyBalance, setProfiMyBalance] = useState(null);
 
-    useEffect(() => {
-        fetchProfiAll();
-        fetchProfiMy();
-    }, [contract]);
+  useEffect(() => {
+    fetchProfiAll();
+    fetchProfiMy();
+  }, [contract]);
 
-    const fetchProfiAll = async () => {
-        if (contract) {
-            const result = await contract.methods.getValueAllStackingLP().call();
-            setProfiBalance(result.toString().slice(0, -12));
-        }
-    };
+  const fetchProfiAll = async () => {
+    if (contract) {
+      const result = await contract.methods.getValueAllStackingLP().call();
+      setProfiBalance(result.toString().slice(0, -12) || 0);
+    }
+  };
 
-    const fetchProfiMy = async () => {
-        if (contract) {
-            const result = await contract.methods.getMyStackingBalance().call();
-            setProfiMyBalance(result.toString().slice(0, -12));
-        }
-    };
+  const fetchProfiMy = async () => {
+    if (contract) {
+      const result = await contract.methods.getMyStackingBalance().call();
+      setProfiMyBalance(result.toString().slice(0, -12) || 0);
+    }
+  };
 
-    const putLPValue = useRef(null);
+  const putLPValue = useRef(null);
 
-    const handlePutLP = async () => {
-        if (contract && putLPValue.current && selectedAccount) {
-            const result = await contract.methods.putLPProfi(putLPValue.current.value).send({ from: selectedAccount });
-            alert("Ожидайте, транзакция отправлена");
-            console.log(result);
-        }
-        fetchProfiAll();
-        fetchProfiMy();
-    };
+  const handlePutLP = async () => {
+    if (contract && putLPValue.current && selectedAccount) {
+      const result = await contract.methods
+        .putLPProfi(putLPValue.current.value)
+        .send({ from: selectedAccount });
+      alert("Ожидайте, транзакция отправлена");
+      console.log(result);
+    }
+    fetchProfiAll();
+    fetchProfiMy();
+  };
 
-    const handleReturnMyStack = async () => {
-        if (contract && selectedAccount) {
-            const result = await contract.methods.returnMyStack().send({ from: selectedAccount });
-            console.log(result);
-            alert("Ожидайте, транзакция отправлена");
-        }
-        fetchProfiAll();
-        fetchProfiMy();
-    };
+  const handleReturnMyStack = async () => {
+    if (contract && selectedAccount) {
+      const result = await contract.methods
+        .returnMyStack()
+        .send({ from: selectedAccount });
+      console.log(result);
+      alert("Ожидайте, транзакция отправлена");
+    }
+    fetchProfiAll();
+    fetchProfiMy();
+  };
 
-    const handleTakeReward = async () => {
-        if (contract && selectedAccount) {
-            const result = await contract.methods.takeReward().send({ from: selectedAccount });
-            console.log(result);
-            alert("Ожидайте, транзакция отправлена");
-        }
-        fetchProfiAll();
-        fetchProfiMy();
-    };
+  const handleTakeReward = async () => {
+    if (contract && selectedAccount) {
+      const result = await contract.methods
+        .takeReward()
+        .send({ from: selectedAccount });
+      console.log(result);
+      alert("Ожидайте, транзакция отправлена");
+    }
+    fetchProfiAll();
+    fetchProfiMy();
+  };
 
-    return (
-        <div className={"stacking"}>
-            <h1>Информация о стейкинге в системе</h1>
-            <h4>Количество всех LP токенов PROFI на стейкинге - {profiBalance}</h4>
-            <h4>Количество ваших LP токенов PROFI на стейкинге - {profiMyBalance}</h4>
-            <h3>Положить LP токены на стейкинг</h3>
-            <input ref={putLPValue} className={"form-control"} type="text" placeholder={"Количество токенов"} />
-            <button onClick={handlePutLP}>Положить</button>
-            <h3>Забрать свои LP токены со стейкинга</h3>
-            <button onClick={handleReturnMyStack}>Забрать</button>
-            <h3>Забрать награду со стейкинга</h3>
-            <button onClick={handleTakeReward}>Забрать награду</button>
-        </div>
-    );
+  return (
+    <div className={"stacking"}>
+      <h1>Информация о стейкинге в системе</h1>
+      <h4>Количество всех LP токенов PROFI на стейкинге - {profiBalance}</h4>
+      <h4>Количество ваших LP токенов PROFI на стейкинге - {profiMyBalance}</h4>
+      <h3>Положить LP токены на стейкинг</h3>
+      <input
+        ref={putLPValue}
+        className={"form-control"}
+        type="text"
+        placeholder={"Количество токенов"}
+      />
+      <button onClick={handlePutLP}>Положить</button>
+      <h3>Забрать награду со стейкинга</h3>
+      <button onClick={handleTakeReward}>Забрать</button>
+      <h3>Забрать свои LP токены со стейкинга</h3>
+      <button onClick={handleReturnMyStack}>Забрать</button>
+    </div>
+  );
 };
 
 export default Stacking;

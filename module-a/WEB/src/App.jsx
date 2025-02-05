@@ -3,47 +3,47 @@ import { useData } from "./Components/DataProvider";
 import { path } from "./Components/Path";
 
 function App() {
-    const navigate = useNavigate();
-    const { selectedAccount } = useData() || {};
+  const navigate = useNavigate();
+  const { selectedAccount } = useData() || {};
 
-    const handleClickPoolsList = () => {
-        navigate(path.poolsList);
-    };
+  const handleClickPoolsList = () => {
+    navigate(path.poolsList);
+  };
 
-    const handleClickBalanceList = () => {
-        navigate(path.balanceList);
-    };
+  const handleClickBalanceList = () => {
+    navigate(path.balanceList);
+  };
 
-    const handleClickStacking = () => {
-        navigate(path.stacking);
-    };
+  const handleClickStacking = () => {
+    navigate(path.stacking);
+  };
 
-    const handleClickRouter = () => {
-        navigate(path.rooter);
-    };
+  const handleClickRouter = () => {
+    navigate(path.rooter);
+  };
 
-    return (
-        <div>
-            <h1>Приложение для обмена токенов</h1>
-            {selectedAccount !== "nonAuthorized" ? (
-                <div className="forAuthorization">
-                    <p>Для авторизованных</p>
-                    <button onClick={handleClickPoolsList}>Информация о существующих пулах в системе</button>
-                    <div>---</div>
-                    <button onClick={handleClickBalanceList}>Информация о вашем балансе токенов в системе</button>
-                    <div>---</div>
-                    <button onClick={handleClickStacking}>Информация о стейкинге токенов в системе</button>
-                    <div>---</div>
-                    <button onClick={handleClickRouter}>Информация о роутере в системе</button>
-                </div>
-            ) : (
-                <div className="forNonAuthorization">
-                    <p>Для не авторизованных</p>
-                    <button onClick={handleClickPoolsList}>Информация о существующих пулах в системе</button>
-                </div>
-            )}
-        </div>
-    );
+  return (
+    <div>
+      <h1>Приложение для обмена токенов</h1>
+      <div className="forAuthorization">
+        <button onClick={handleClickPoolsList}>
+          Информация о существующих пулах в системе
+        </button>
+        <div>---</div>
+        <button onClick={handleClickBalanceList}>
+          Информация о вашем балансе токенов в системе
+        </button>
+        <div>---</div>
+        <button onClick={handleClickStacking}>
+          Информация о стейкинге токенов в системе
+        </button>
+        <div>---</div>
+        <button onClick={handleClickRouter}>
+          Информация о роутере в системе
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default App;

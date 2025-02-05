@@ -2,12 +2,26 @@ import { useEffect, useRef, useState } from "react";
 import { useData } from "../Components/DataProvider";
 
 const PoolsList = () => {
-  const { contract, selectedAccount, setSelectedAccount } = useData() || {};
+  const { contract, selectedAccount } = useData() || {};
   const [poolsList, setPoolsList] = useState([]);
   const [poolName, setPoolName] = useState("");
   const [poolOwner, setPoolOwner] = useState("");
   const [firstTokenReserve, setFirstTokenReserve] = useState("");
   const [secondTokenReserve, setSecondTokenReserve] = useState("");
+  const [poolNames, setPoolNames] = useState("");
+  const [poolAddress, setPoolAddreses] = useState("");
+
+  const [firstTokenAddress, setFirstTokenAddress] = useState("");
+  const [secondTokenAddress, setSecondTokenAddress] = useState("");
+  const [firstTokenPrice, setFirstTokenPrice] = useState("");
+  const [secondTokenPrice, setSecondTokenPrice] = useState("");
+  const [lpAddress, setLpAddress] = useState("");
+  const [startingEthRatio, setStartingEthRatio] = useState("");
+
+  const [gerdaAddress, setGerdaAddress] = useState("");
+  const [krendelAddress, setKrendelAddress] = useState("");
+  const [rtkAddress, setRtkAddress] = useState("");
+  const [profiAddress, setProfiAddress] = useState("");
 
   const poolAddressNameRef = useRef(null);
   const poolAddressOwnerRef = useRef(null);
@@ -19,15 +33,65 @@ const PoolsList = () => {
   const tokenForLiqRef = useRef(null);
   const valueToLiqRef = useRef(null);
 
+  const fetchPools = async () => {
+    try {
+      const addresses = await contract.methods.getAllPoolsAddress().call();
+      setPoolAddreses(addresses);
+
+      const names = await contract.methods.getAllPoolnames(addresses).call();
+      setPoolNames(names);
+    } catch (error) {
+      console.error(`Ошибка получения пулов ${error}`);
+    }
+  };
+
+  const fetchPoolsList = async () => {
+    if (contract) {
+      const result = await contract.methods.getAllPoolsAddress().call();
+      setPoolsList(result);
+    }
+  };
+
+  const fetchCoinAddresses = async () => {
+    try {
+      const gerda = await contract.methods.Gerda().call();
+      const krendel = await contract.methods.Krendel().call();
+      const rtk = await contract.methods.RTK().call();
+      const profi = await contract.methods.Profi().call();
+      setGerdaAddress(gerda.toString());
+      setKrendelAddress(krendel.toString());
+      setRtkAddress(rtk.toString());
+      setProfiAddress(profi.toString());
+    } catch (error) {
+      console.error(`Ошибка получения коинов ${error}`);
+    }
+  };
   useEffect(() => {
-    const fetchPoolsList = async () => {
-      if (contract) {
-        const result = await contract.methods.getAllPoolsAddress().call();
-        setPoolsList(result);
-      }
-    };
+    fetchCoinAddresses();
     fetchPoolsList();
+    fetchPools();
   }, [contract]);
+
+  const handleCreatePool = async () => {
+    try {
+      alert("Пул создаётся");
+      await contract.methods
+        .createPool(
+          poolName,
+          firstTokenAddress,
+          secondTokenAddress,
+          firstTokenPrice,
+          secondTokenPrice,
+          lpAddress,
+          startingEthRatio
+        )
+        .send({ from: selectedAccount });
+      fetchPools();
+    } catch (error) {
+      console.error(`Ошибка при создании пула ${error}`);
+      alert(`Ошибка при создании пула`);
+    }
+  };
 
   const handleClickPoolName = () => {
     const fetchPoolName = async () => {
@@ -97,7 +161,7 @@ const PoolsList = () => {
                 selectedAccount
               )
               .send({ from: selectedAccount });
-            setSelectedAccount("reload");
+
             console.log(result);
             alert("Ожидайте, транзакция отправлена");
           } else if (tradeMethodRef.current.value === "secondToFirst") {
@@ -108,7 +172,7 @@ const PoolsList = () => {
                 selectedAccount
               )
               .send({ from: selectedAccount });
-            setSelectedAccount("reload");
+
             console.log(result);
             alert("Ожидайте, транзакция отправлена");
           }
@@ -151,9 +215,6 @@ const PoolsList = () => {
   return (
     <div>
       <h1>Информация о существующих пулах</h1>
-      <h4>
-        Список адресов всех пулов в системе: {poolsList && poolsList.join(", ")}
-      </h4>
       <h3>Узнать пару токенов, которые обмениваются в пуле</h3>
       <input
         className="form-control"
@@ -230,6 +291,52 @@ const PoolsList = () => {
         placeholder="Количество токенов"
       />
       <button onClick={handleAddLiq}>Добавить ликвидность</button>
+
+      <h3>Создать новый пул</h3>
+      <h3>Адрес GerdaCoin: {gerdaAddress}</h3>
+      <h3>Адрес KrendelCoin: {krendelAddress}</h3>
+      <h3>Адрес RTKCoin: {rtkAddress}</h3>
+      <h3>Адрес ProfiCoin: {profiAddress}</h3>
+      <br></br>
+      <h3>Адреса пуллов: {poolAddress && poolAddress.join(", ")}</h3>
+      <br></br>
+      <input
+        placeholder="Имя пула"
+        value={poolName}
+        onChange={(e) => setPoolName(e.target.value)}
+      />
+      <input
+        placeholder="Адрес первого токена"
+        value={firstTokenAddress}
+        onChange={(e) => setFirstTokenAddress(e.target.value)}
+      />
+      <input
+        placeholder="Адрес следующего токена"
+        value={secondTokenAddress}
+        onChange={(e) => setSecondTokenAddress(e.target.value)}
+      />
+      <input
+        placeholder="Цена первого токена"
+        value={firstTokenPrice}
+        onChange={(e) => setFirstTokenPrice(e.target.value)}
+      />
+      <input
+        placeholder="Цена второго токена"
+        value={secondTokenPrice}
+        onChange={(e) => setSecondTokenPrice(e.target.value)}
+      />
+      <input
+        placeholder="Адрес Lp"
+        value={lpAddress}
+        onChange={(e) => setLpAddress(e.target.value)}
+      />
+      <input
+        placeholder="Начальное состояние Eth"
+        value={startingEthRatio}
+        onChange={(e) => setStartingEthRatio(e.target.value)}
+      />
+
+      <button onClick={handleCreatePool}>Создать</button>
     </div>
   );
 };
